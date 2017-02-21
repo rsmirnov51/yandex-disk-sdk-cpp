@@ -1,6 +1,11 @@
 language: cpp
+sudo: required
 
 os: osx
+
+before_script:
+- brew tap nlohmann/json 
+- brew install nlohmann_json
           
 script:
 - mkdir build && cd build
