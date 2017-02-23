@@ -1,8 +1,14 @@
-cmake_minimum_required(VERSION 2.8.7)
+cmake_minimum_required(VERSION 3.0)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(YDCLIENT)
+include("gate/cmake/HunterGate.cmake")
+HunterGate(
+    URL "https://github.com/ruslo/hunter/archive/v0.18.3.tar.gz"
+    SHA1 "3e29b599966d2acc7ddcb10cc50522d794d24d93"
+)
+
+project(ydclient)
 
 set(YDCLIENT_VERSION_MAJOR 0)
 set(YDCLIENT_VERSION_MINOR 1)
@@ -12,7 +18,8 @@ set(YDCLIENT_VERSION_STRING "v${YDCLIENT_VERSION}")
 
 option(BUILD_TESTS "Build tests" ON)
 
-find_package(Boost COMPONENTS filesystem system)
+hunter_add_package(Boost COMPONENTS system filesystem)
+find_package(Boost CONFIG REQUIRED system filesystem)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
@@ -24,9 +31,11 @@ target_link_libraries(${PROJECT_NAME} Boost::filesystem Boost::system)
 
 if(BUILD_TESTS)
 	enable_testing()
+    hunter_add_package(Catch)
+    find_package(Catch CONFIG REQUIRED)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/tests/)
 	file(GLOB TESTS_${PROJECT_NAME}_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/tests/*/*.cpp)
 	add_executable(check ${TESTS_${PROJECT_NAME}_SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/tests/main.cpp)
-	target_link_libraries(check ${PROJECT_NAME} ${DEPENDS_LIBRARIES})
+	target_link_libraries(check ${PROJECT_NAME} Catch::Catch)
 	add_test(NAME check COMMAND check "-s" "-r" "compact" "--use-colour" "yes")	
 endif()

@@ -8,7 +8,6 @@ before_script:
 - brew install nlohmann_json
           
 script:
-- mkdir build && cd build
-- cmake ..
-- make
-- ctest -V
+- cmake -H. -B_builds
+- cmake --build _builds/
+- cmake --build _builds/ --target test
