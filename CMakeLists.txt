@@ -4,8 +4,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include("gate/cmake/HunterGate.cmake")
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.18.3.tar.gz"
-    SHA1 "3e29b599966d2acc7ddcb10cc50522d794d24d93"
+    URL  "https://github.com/designerror/hunter/archive/v0.18.5.tar.gz"
+    SHA1 "95b184d35479f5e9bdc460cd3e4ae81fc26287e8"
 )
 
 project(ydclient)
@@ -20,6 +20,9 @@ option(BUILD_TESTS "Build tests" ON)
 
 hunter_add_package(Boost COMPONENTS system filesystem)
 find_package(Boost CONFIG REQUIRED system filesystem)
+
+hunter_add_package(Buffer)
+find_package(Buffer REQUIRED)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
