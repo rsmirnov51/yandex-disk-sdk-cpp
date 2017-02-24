@@ -21,8 +21,8 @@ option(BUILD_TESTS "Build tests" ON)
 hunter_add_package(Boost COMPONENTS system filesystem)
 find_package(Boost CONFIG REQUIRED system filesystem)
 
-#hunter_add_package(Buffer)
-#find_package(Buffer REQUIRED)
+hunter_add_package(Buffer)
+find_package(Buffer)
 
 hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
