@@ -43,8 +43,8 @@ target_link_libraries(${PROJECT_NAME} Boost::filesystem Boost::system OpenSSL::S
 
 if(BUILD_TESTS)
 	enable_testing()
-    hunter_add_package(Catch)
-    find_package(Catch CONFIG REQUIRED)
+	hunter_add_package(Catch)
+	find_package(Catch CONFIG REQUIRED)
 	file(GLOB TESTS_${PROJECT_NAME}_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/tests/*/*.cpp)
 	add_executable(check ${TESTS_${PROJECT_NAME}_SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/tests/main.cpp)
 	target_link_libraries(check ${PROJECT_NAME} Catch::Catch)
