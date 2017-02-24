@@ -24,13 +24,19 @@ find_package(Boost CONFIG REQUIRED system filesystem)
 hunter_add_package(Buffer)
 find_package(Buffer REQUIRED)
 
+hunter_add_package(OpenSSL)
+find_package(OpenSSL REQUIRED)
+
+hunter_add_package(CURL)
+find_package(CURL CONFIG REQUIRED)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 file(GLOB ${PROJECT_NAME}_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/sources/*) 
 
 add_library(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCES})
 
-target_link_libraries(${PROJECT_NAME} Boost::filesystem Boost::system)
+target_link_libraries(${PROJECT_NAME} Boost::filesystem Boost::system OpenSSL::SSL OpenSSL::Crypto CURL::libcurl)
 
 if(BUILD_TESTS)
 	enable_testing()
