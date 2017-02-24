@@ -30,13 +30,16 @@ find_package(OpenSSL REQUIRED)
 hunter_add_package(CURL)
 find_package(CURL CONFIG REQUIRED)
 
+hunter_add_package(nlohmann-json)
+find_package(nlohmann-json REQUIRED)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 file(GLOB ${PROJECT_NAME}_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/sources/*) 
 
 add_library(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCES})
 
-target_link_libraries(${PROJECT_NAME} Boost::filesystem Boost::system OpenSSL::SSL OpenSSL::Crypto CURL::libcurl)
+target_link_libraries(${PROJECT_NAME} Boost::filesystem Boost::system OpenSSL::SSL OpenSSL::Crypto CURL::libcurl nlohmann-json::nlohmann-json)
 
 if(BUILD_TESTS)
 	enable_testing()
