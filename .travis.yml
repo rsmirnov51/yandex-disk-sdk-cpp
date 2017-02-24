@@ -13,11 +13,7 @@ addons:
     - gcc-5
     - g++-5
     - clang-3.6
-
-before_script:
-- brew tap nlohmann/json 
-- brew install nlohmann_json
-          
+        
 script:
 - cmake -H. -B_builds
 - cmake --build _builds/
