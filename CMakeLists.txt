@@ -22,7 +22,7 @@ hunter_add_package(Boost COMPONENTS system filesystem)
 find_package(Boost CONFIG REQUIRED system filesystem)
 
 hunter_add_package(buffer)
-find_package(buffer)
+find_package(buffer REQUIRED)
 
 hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
