@@ -5,7 +5,6 @@ using json = nlohmann::json;
 using std::string;
 
 #include <list>
-using list = std::list<std::string>;
 
 #include "boost/filesystem.hpp"
 namespace fs = boost::filesystem;
@@ -14,36 +13,38 @@ namespace fs = boost::filesystem;
 
 namespace YandexDisk
 {
-    class Client 
+    class Client
     {
     public:
-    
+
         Client(string token);
-        
+
         auto info() -> json;
-  
+
         auto info(url::path resource, json options = nullptr) -> json;
-  
-        auto list(json fields = nullptr) -> json;
-        
-        auto upload(url::path to, fs::path from, bool overwrite, list fields = nullptr) -> json;
-  
-        auto upload(url::path to, url::path from, list fields = nullptr) -> json;
-  
-        auto download(url::path from, url::path to, list fields = nullptr) -> json;
-  
-        auto copy(url::path from, url::path to, bool overwrite, list fields = nullptr) -> json;
-  
-        auto move(url::path from, url::path to, bool overwrite, list fields = nullptr) -> json;
-        
-        auto mkdir(url::path dir, list fields = nullptr) -> json;
-        
-        auto remove(url::path resource, bool permanently, list fields = nullptr) -> json;
-  
+
+        auto list(json options = nullptr) -> json;
+
+        auto upload(url::path to, fs::path from, bool overwrite, std::list<string> fields = std::list<string>()) -> json;
+
+        auto upload(url::path to, url::path from, std::list<string> fields = std::list<string>()) -> json;
+
+        auto download(url::path from, url::path to, std::list<string> fields = std::list<string>()) -> json;
+
+        auto copy(url::path from, url::path to, bool overwrite, std::list<string> fields = std::list<string>()) -> json;
+
+        auto move(url::path from, url::path to, bool overwrite, std::list<string> fields = std::list<string>()) -> json;
+
+        auto mkdir(url::path dir, std::list<string> fields = std::list<string>()) -> json;
+
+        auto remove(url::path resource, bool permanently, std::list<string> fields = std::list<string>()) -> json;
+
         auto publish(url::path resource) -> json;
-  
+
         auto unpublish(url::path resource) -> json;
-        
+
+        auto patch(url::path resource, json meta, std::list<string> fields = std::list<string>()) -> json;
+
         string token;
     };
 
