@@ -44,7 +44,7 @@ target_link_libraries(${PROJECT_NAME}
 	OpenSSL::SSL OpenSSL::Crypto 
 	CURL::libcurl 
 	nlohmann-json::nlohmann-json
-	buffer::buffer)
+	buffer)
 
 if(BUILD_TESTS)
 	enable_testing()
