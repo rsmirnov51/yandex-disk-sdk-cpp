@@ -4,8 +4,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include("gate/cmake/HunterGate.cmake")
 HunterGate(
-    URL  "https://github.com/designerror/hunter/archive/v0.18.4.2.tar.gz"
-    SHA1 "501962a5df62ac2c5a0656b4927e39812c27b649"
+    URL  "https://github.com/designerror/hunter/archive/v0.18.4.3.tar.gz"
+    SHA1 "94c5bd3e2fd44eeeadf1f2887ea81f33ee3baeb0"
 )
 
 project(ydclient)
