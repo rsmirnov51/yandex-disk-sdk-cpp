@@ -4,8 +4,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include("gate/cmake/HunterGate.cmake")
 HunterGate(
-    URL  "https://github.com/designerror/hunter/archive/v0.18.4.2.tar.gz"
-    SHA1 "501962a5df62ac2c5a0656b4927e39812c27b649"
+    URL  "https://github.com/designerror/hunter/archive/v0.18.4.6.tar.gz"
+    SHA1 "c4bdcfb015bf6c5e4b57efd10c11ef765934c21c"
 )
 
 project(ydclient)
@@ -39,7 +39,12 @@ file(GLOB ${PROJECT_NAME}_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/sources/*)
 
 add_library(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCES})
 
-target_link_libraries(${PROJECT_NAME} Boost::filesystem Boost::system OpenSSL::SSL OpenSSL::Crypto CURL::libcurl nlohmann-json::nlohmann-json)
+target_link_libraries(${PROJECT_NAME} 
+	Boost::filesystem Boost::system 
+	OpenSSL::SSL OpenSSL::Crypto 
+	CURL::libcurl 
+	nlohmann-json::nlohmann-json
+	buffer)
 
 if(BUILD_TESTS)
 	enable_testing()
