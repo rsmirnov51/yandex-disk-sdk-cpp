@@ -2,10 +2,6 @@ language: generic
 sudo: required
 dist: trusty
 
-os: 
-- osx
-- linux
-
 addons:
   apt:
     sources:
@@ -14,7 +10,7 @@ addons:
     packages:
     - gcc-5
     - g++-5
-    - clang-4.2
+    - clang-4.2.1
     
 matrix:
   include:
@@ -22,8 +18,8 @@ matrix:
       compiler: gcc-5
       env: COMPILER="g++-5"
     - os: osx
-      compiler: clang-4.2
-      env: COMPILER="clang++-4.2"
+      compiler: clang-4.2.1
+      env: COMPILER="clang++-4.2.1"
         
 script:
 - cmake -H. -B_builds
