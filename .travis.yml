@@ -4,11 +4,13 @@ dist: trusty
 
 addons:
   apt:
-    sources:
-    - llvm-toolchain-precise-3.6
     packages:
-    - gcc-5
-    - clang-3.6
+      - ccache
+      - clang-3.6
+      - gcc-5
+    sources:
+      - llvm-toolchain-trusty-3.6
+      - ubuntu-toolchain-r-test
     
 matrix:
   include:
