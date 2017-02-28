@@ -5,21 +5,18 @@ dist: trusty
 addons:
   apt:
     sources:
-    - ubuntu-toolchain-r-test
     - llvm-toolchain-precise-3.6
     packages:
-    - gcc-5
-    - g++-5
     - clang-4.2.1
     
 matrix:
   include:
     - os: linux
-      compiler: gcc-5
-      env: COMPILER="g++-5"
+      compiler: clang-3.6
+      env: COMPILER="clang++-3.6"
     - os: osx
-      compiler: clang-4.2.1
-      env: COMPILER="clang++-4.2.1"
+      compiler: clang-3.6
+      env: COMPILER="clang++-3.6"
         
 script:
 - cmake -H. -B_builds
