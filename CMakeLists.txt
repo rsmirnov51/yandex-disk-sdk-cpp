@@ -4,8 +4,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include("gate/cmake/HunterGate.cmake")
 HunterGate(
-    URL  "https://github.com/designerror/hunter/archive/v0.18.4.9.tar.gz"
-    SHA1 "e652296c83ad695d761661ceeca97a0a62357fda"
+    URL  "https://github.com/designerror/hunter/archive/v0.18.4.10.tar.gz"
+    SHA1 "af4a95e30a4b7b5394c28b5907acb4d2363d53f7"
 )
 
 project(ydclient)
@@ -21,8 +21,8 @@ option(BUILD_TESTS "Build tests" ON)
 hunter_add_package(Boost COMPONENTS system filesystem)
 find_package(Boost CONFIG REQUIRED system filesystem)
 
-hunter_add_package(puffin-buffer)
-find_package(puffin-buffer REQUIRED)
+#hunter_add_package(puffin-buffer)
+#find_package(puffin-buffer REQUIRED)
 
 hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
@@ -43,8 +43,8 @@ target_link_libraries(${PROJECT_NAME}
 	Boost::filesystem Boost::system 
 	OpenSSL::SSL OpenSSL::Crypto 
 	CURL::libcurl 
-	nlohmann-json::nlohmann-json
-	puffin-buffer::puffin-buffer)
+	nlohmann-json::nlohmann-json)
+#	puffin-buffer::puffin-buffer)
 
 if(BUILD_TESTS)
 	enable_testing()
