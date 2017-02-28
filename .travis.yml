@@ -15,6 +15,15 @@ addons:
     - gcc-5
     - g++-5
     - clang-4.2
+    
+matrix:
+    include:
+        - os: linux
+          compiler: gcc-5
+          env: COMPILER="g++-5"
+        - os: osx
+          compiler: clang-4.2
+          env: COMPILER="clang++-4.2"
         
 script:
 - cmake -H. -B_builds
