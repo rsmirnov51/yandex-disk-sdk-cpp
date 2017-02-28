@@ -8,10 +8,19 @@ environment:
 
 configuration:
     - plain
+    
+before_build:
+    - ps: >-
+        If ($env:Platform -Match "x86") {
+            $env:VCVARS_PLATFORM="x86"
+        } Else {
+            $env:VCVARS_PLATFORM="amd64"
+        }
+    - ps: $env:VSCOMNTOOLS=(Get-Content ("env:VS" + "$env:VSVER" + "0COMNTOOLS"))
+    - call "%VSCOMNTOOLS%\..\..\VC\vcvarsall.bat" %VCVARS_PLATFORM%
+    - git submodule update --init
 
 build_script:
-  - cd %APPVEYOR_BUILD_FOLDER%
-  - git submodule update --init
   - cmake -H. -B_build
   - cmake --build _build
   - cmake --build _build --target test
