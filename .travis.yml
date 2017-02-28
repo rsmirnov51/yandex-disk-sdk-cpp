@@ -7,7 +7,7 @@ addons:
     sources:
     - llvm-toolchain-precise-3.6
     packages:
-    - clang-4.2.1
+    - clang-3.6
     
 matrix:
   include:
