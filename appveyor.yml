@@ -11,6 +11,7 @@ configuration:
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
+  - git submodule update --init
   - cmake -H. -B_build
   - cmake --build _build
   - cmake --build _build --target test
