@@ -2,7 +2,7 @@ language: generic
 sudo: required
 dist: trusty
 
-- os: osx
+os: osx
 
 script:
 - cmake -H. -B_builds
