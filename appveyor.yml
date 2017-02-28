@@ -1,0 +1,16 @@
+platform:
+    - x86
+    - x64
+
+environment:
+    matrix:
+        - VSVER: 14
+
+configuration:
+    - plain
+
+build_script:
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - cmake -H. -B_build
+  - cmake --build _build
+  - cmake --build _build --target test
