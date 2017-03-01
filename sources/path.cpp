@@ -64,7 +64,7 @@ namespace url
         return out;
     }
 
-    auto path::string() -> std::string {
+    auto path::string() const -> std::string {
         return str;
     }
 }
