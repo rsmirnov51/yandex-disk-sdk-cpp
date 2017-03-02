@@ -3,7 +3,7 @@ using namespace std;
 
 class Client {
 public:
-  Client(string token);
+  Client(string token)
   {
    token_client = token;
    cout << "вы ввели следующий ключ: " << token_client << endl; 
