@@ -8,8 +8,6 @@ namespace url
 {
     class path
     {
-        static std::string separator;
-        
         std::string str;
     
     public:
@@ -38,7 +36,7 @@ namespace url
 
         void swap(path& rhs);
 
-        auto string() -> std::string;
+        auto string() const -> std::string;
 
         friend auto operator/(const path& lhs, const path& rhs) -> path; 
 
@@ -47,9 +45,15 @@ namespace url
         friend auto equivalent(const path& p1, const path& p2) -> bool;
 
         friend auto operator<<(std::ostream & out, const path& p) -> std::ostream&;
+
+        static std::string separator;
     };
 }
 
 void swap(url::path& p1, url::path& p2);
+
+auto is_root(const url::path& p) -> bool;
+
+auto is_directory(const url::path& p) -> bool;
 
 #endif
