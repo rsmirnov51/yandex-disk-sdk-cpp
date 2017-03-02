@@ -34,4 +34,6 @@ public:
   curl_global_cleanup();
   return 0;
   }
-}
+
+};
+
