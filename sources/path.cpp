@@ -72,3 +72,11 @@ namespace url
 auto swap(url::path& p1, url::path& p2) -> void {
     p1.swap(p2);
 }
+
+auto is_root(const url::path& p) -> bool {
+    return p.string() == url::path::separator;
+}
+
+auto is_directory(const url::path& p) -> bool {
+    return boost::algorithm::ends_with(p.string(), url::path::separator);
+}
