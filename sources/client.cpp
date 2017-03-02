@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <curl/curl.h>
-using namespace std;
+//using namespace std;
 
 class Client {
 public:
@@ -17,7 +17,7 @@ public:
   curl = curl_easy_init();
   if(curl) {
     // Установка URL, который должен получить POST 
-    curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curl, CURLOPT_URL, "http://postit.example.com/moo.cgi");
     //Указываем данные POST
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "name=Nick&project=curl");
  
