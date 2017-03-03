@@ -16,7 +16,7 @@ namespace yadisk
 
     Client::Client(string token_) : token{token_} {}
 
-	auto Client::copy(url::path from, url::path to, bool overwrite, std::list<string> fields = nullptr) -> json {
+	auto Client::copy(url::path from, url::path to, bool overwrite, std::list<std::string> fields = {}) -> json {
 		CURL * curl;
 		url::params_t url_params;
 		struct curl_slist *header_list = nullptr;
