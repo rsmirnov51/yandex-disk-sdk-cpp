@@ -16,12 +16,11 @@ namespace yadisk
 
     Client::Client(string token_) : token{token_} {}
 
-	auto Client::copy(url::path from, url::path to, bool overwrite, list fields = nullptr) -> json {
+	auto Client::copy(url::path from, url::path to, bool overwrite, std::list<string> fields = nullptr) -> json {
 		CURL * curl;
-		std::string post_data;
 		url::params_t url_params;
-		struct curl_slist *headerlist = nullptr;
-		std::string Auth_header;
+		struct curl_slist *header_list = nullptr;
+		std::string auth_header;
 		/*
 		 *	from=<путь к копируемому ресурсу>
 		 *	& path=<путь к скопированному ресурсу>
@@ -36,30 +35,28 @@ namespace yadisk
 		url_params["path"] = quote(to.string(), curl);
 		url_params["overwrite"] = overwrite;
 		url_params["fields"] = boost::algorithm::join(fields, ",");
-		post_data = url_params.string();
-		std::string url = api_url + "/copy?" + post_data; 
+		std::string url = api_url + "/copy?" + url_params.string();
 
-		Auth_header = "Authorization: OAuth " + token;
-		http_header = curl_slist_append(http_header, Auth_header.c_str());
+		auth_header = "Authorization: OAuth " + token;
+		header_list = curl_slist_append(header_list, auth_header.c_str());
 
 		stringstream response;
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long) strlen(post_data));
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post_data);
+		curl_easy_setopt(curl, CURLOPT_READDATA, &response);
 		curl_easy_setopt(curl, CURLOPT_READFUNCTION, write<stringstream>);
 		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, http_header);
+		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header_list);
 
-		auto request = curl_easy_perform(curl);
+		auto response_code = curl_easy_perform(curl);
 
-		curl_slist_free_all(http_header);
+		curl_slist_free_all(header_list);
 		curl_easy_cleanup(curl);
 
-		if (request != CURLE_OK) return json();
+		if (response_code != CURLE_OK) return json();
 
-		auto adata = json::parse(response);
-		return adata;
+		auto answ_data = json::parse(response);
+		return answ_data;
 	}
     
     auto Client::patch(url::path resource, json meta, std::list<string> fields) -> json {
