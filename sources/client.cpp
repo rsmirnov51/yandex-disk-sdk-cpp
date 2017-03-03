@@ -16,6 +16,52 @@ namespace yadisk
 
     Client::Client(string token_) : token{token_} {}
 
+	auto Client::copy(url::path from, url::path to, bool overwrite, list fields = nullptr) -> json {
+		CURL * curl;
+		std::string post_data;
+		url::params_t url_params;
+		struct curl_slist *headerlist = nullptr;
+		std::string Auth_header;
+		/*
+		 *	from=<путь к копируемому ресурсу>
+		 *	& path=<путь к скопированному ресурсу>
+		 *	[& overwrite=<признак перезаписи>]
+		 *	[& fields=<нужные ключи ответа>]
+		*/
+		
+		curl = curl_easy_init();
+		if (!curl) return "";
+		
+		url_params["from"] = quote(from.string(), curl);
+		url_params["path"] = quote(to.string(), curl);
+		url_params["overwrite"] = overwrite;
+		url_params["fields"] = boost::algorithm::join(fields, ",");
+		post_data = url_params.string();
+		std::string url = api_url + "/copy?" + post_data; 
+
+		Auth_header = "Authorization: OAuth " + token;
+		http_header = curl_slist_append(http_header, Auth_header.c_str());
+
+		stringstream response;
+		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long) strlen(post_data));
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post_data);
+		curl_easy_setopt(curl, CURLOPT_READFUNCTION, write<stringstream>);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, http_header);
+
+		auto request = curl_easy_perform(curl);
+
+		curl_slist_free_all(http_header);
+		curl_easy_cleanup(curl);
+
+		if (request != CURLE_OK) return json();
+
+		auto adata = json::parse(response);
+		return adata;
+	}
+    
     auto Client::patch(url::path resource, json meta, std::list<string> fields) -> json {
 
         // init http request
