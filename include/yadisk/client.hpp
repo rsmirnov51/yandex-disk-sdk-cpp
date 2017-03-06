@@ -27,7 +27,7 @@ namespace yadisk
 
         auto upload(url::path to, fs::path from, bool overwrite, std::list<string> fields = std::list<string>()) -> json;
 
-        auto upload(url::path to, url::path from, std::list<string> fields = std::list<string>()) -> json;
+        auto upload(url::path to, string url, std::list<string> fields = std::list<string>()) -> json;
 
         auto download(url::path from, url::path to, std::list<string> fields = std::list<string>()) -> json;
 
