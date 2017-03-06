@@ -15,7 +15,7 @@ namespace fs = boost::filesystem;
 
 #include "url/path.hpp"
 
-#include "callbacks.hpp"
+//#include "callbacks.hpp"
 #include "quote.hpp"
 
  Client::Client(string token_) : token{token_} {}
