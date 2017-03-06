@@ -15,11 +15,11 @@ namespace yadisk
     		static const std::string api_url = "https://cloud-api.yandex.net/v1/disk/resources";
 
     	 	Client::Client(string token_) : token{token_} {}
-    		auto Client::upload(string api_url, url::path from, std::list<string> fields) -> json
+    		auto Client::upload(url::path to,string api_url, std::list<string> fields) -> json
 
   {
     		 CURL *curl;
- 		 CURLcode res;
+ 		
  	
 		 struct curl_slist *header_list = nullptr;
 		
