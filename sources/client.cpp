@@ -2,11 +2,18 @@
 #include <curl/curl.h>
 //using namespace std;
 //#include <url/params.hpp>
-#include <yadisk/client.hpp>
-#include <boost/algorithm/string/join.hpp>
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
-#include <sstream>
-using std::stringstream;
+#include <string>
+using std::string;
+
+#include <list>
+
+#include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
+
+#include "url/path.hpp"
 
 #include "callbacks.hpp"
 #include "quote.hpp"
