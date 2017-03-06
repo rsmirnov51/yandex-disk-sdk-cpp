@@ -63,11 +63,11 @@ namespace yadisk
 		url_params["path"] = quote(resource.string(), curl);
 		std::string url = api_url + "?" + url_params.string();
 
-		// fill http header
-		curl_slist * http_header = nullptr;
-		std::string authorization_header = "Authorization: OAuth " + token;
-		http_header = curl_slist_append(http_header, "Content-Type: application/json");
-		http_header = curl_slist_append(http_header, authorization_header.c_str());
+		// fill http headers
+		curl_slist * header_list = nullptr;
+		std::string auth_header = "Authorization: OAuth " + token;
+		header_list = curl_slist_append(header_list, "Content-Type: application/json");
+		header_list = curl_slist_append(header_list, auth_header.c_str());
 
 		// fill http body
 		auto request_body = meta.dump();
@@ -82,13 +82,13 @@ namespace yadisk
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, request_body.size());
 		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, http_header);
+		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header_list);
 
 		// perform http request
 		auto response_code = curl_easy_perform(curl);
 
 		// clean resources
-		curl_slist_free_all(http_header);
+		curl_slist_free_all(header_list);
 		curl_easy_cleanup(curl);
 
 		// check response code
