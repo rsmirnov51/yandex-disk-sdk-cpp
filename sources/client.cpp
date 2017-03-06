@@ -1,31 +1,27 @@
-#include <stdio.h>
 #include <curl/curl.h>
-//using namespace std;
-//#include <url/params.hpp>
-#include <nlohmann/json.hpp>
-using json = nlohmann::json;
 
-#include <string>
-using std::string;
+#include <url/params.hpp>
+#include <yadisk/client.hpp>
+#include <boost/algorithm/string/join.hpp>
 
-#include <list>
+#include <sstream>
+using std::stringstream;
 
-#include <boost/filesystem.hpp>
-namespace fs = boost::filesystem;
-
-#include "url/path.hpp"
-
-//#include "callbacks.hpp"
+#include "callbacks.hpp"
 #include "quote.hpp"
+
+namespace yadisk
+{
+    static const std::string api_url = "https://cloud-api.yandex.net/v1/disk/resources";
 
  Client::Client(string token_) : token{token_} {}
 
 auto upload(string url, url::path from, list<string> fields) -> json
 
   {
-    CURL *curl;
-  CURLcode res;
- url::params_t url_params;
+    	CURL *curl;
+ 	 CURLcode res;
+ 	url::params_t url_params;
 		struct curl_slist *header_list = nullptr;
 		std::string auth_header;
     
