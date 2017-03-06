@@ -1,39 +1,58 @@
 #include <stdio.h>
 #include <curl/curl.h>
 //using namespace std;
+#include <url/params.hpp>
+#include <yadisk/client.hpp>
+#include <boost/algorithm/string/join.hpp>
 
-class Client {
-public:
+#include <sstream>
+using std::stringstream;
 
-  void UploadN()
+#include "callbacks.hpp"
+#include "quote.hpp"
+
+ Client::Client(string token_) : token{token_} {}
+
+auto upload(string url, url::path from, list<string> fields) -> json
+
   {
     CURL *curl;
   CURLcode res;
- 
+ url::params_t url_params;
+		struct curl_slist *header_list = nullptr;
+		std::string auth_header;
+    
+    url_params["path"] = quote(to.string(), curl);
+    url_params["fields"] = boost::algorithm::join(fields, ",");
+		std::string url = api_url + "/copy?" + url_params.string();
+    auth_header = "Authorization: OAuth " + token;
+		header_list = curl_slist_append(header_list, auth_header.c_str()); 
+    stringstream response;
   // Инициализация
   curl_global_init(CURL_GLOBAL_ALL);
  
-  /* get a curl handle */ 
   curl = curl_easy_init();
-  if(curl) {
+  
     // Установка URL, который должен получить POST 
-    curl_easy_setopt(curl, CURLOPT_URL, "http://postit.example.com/moo.cgi");
+    curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     //Указываем данные POST
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "name=Nick&project=curl");
- 
+      curl_easy_setopt(curl, CURLOPT_READDATA, &response);
+		curl_easy_setopt(curl, CURLOPT_READFUNCTION, write<stringstream>);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header_list);
     //Начало выполнения запроса
-    res = curl_easy_perform(curl);
+    auto res = curl_easy_perform(curl);
     //Проверка на ошибки 
-    if(res != CURLE_OK)
-      fprintf(stderr, "curl_easy_perform() failed: %s\n",
-              curl_easy_strerror(res));
- 
-    //Очистка 
-    curl_easy_cleanup(curl);
-  }
-  curl_global_cleanup();
-  //return 0;
-  }
+   curl_slist_free_all(header_list);
+		curl_easy_cleanup(curl);
+
+		if (res != CURLE_OK) return json();
+
+		auto answ = json::parse(response);
+		return answ;
+  
 
 };
 
