@@ -32,8 +32,7 @@ auto upload(string url, url::path from, list<string> fields) -> json
   curl_global_init(CURL_GLOBAL_ALL);
  
   curl = curl_easy_init();
-  
-    // Установка URL, который должен получить POST 
+   // Установка URL, который должен получить POST 
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     //Указываем данные POST
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "name=Nick&project=curl");
