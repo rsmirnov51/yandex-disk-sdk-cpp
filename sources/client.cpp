@@ -10,9 +10,18 @@ using std::stringstream;
 #include "callbacks.hpp"
 #include "quote.hpp"
 
-namespace yadisk
-{
-    static const std::string api_url = "https://cloud-api.yandex.net/v1/disk/resources";
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
+#include <string>
+using std::string;
+
+#include <list>
+
+#include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
+
+#include "url/path.hpp"
 
  Client::Client(string token_) : token{token_} {}
 
