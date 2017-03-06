@@ -45,12 +45,13 @@ namespace yadisk
 
         auto patch(url::path resource, json meta, std::list<string> fields = std::list<string>()) -> json;
 
+        auto info(string public_key, url::path resource = nullptr, json options = nullptr) -> json;
+      
+        auto download(string public_key, fs::path to, url::path file = nullptr)-> json;
+      
+        auto save(string public_key, string name, url::path file = nullptr)-> json;
+        
         string token;
     };
 
-    auto info(string public_key, url::path resource = nullptr, json options = nullptr) -> json;
-  
-    auto download(string public_key, fs::path to, url::path file = nullptr)-> json;
-  
-    auto save(string public_key, fs::path to, url::path file = nullptr)-> json;
 }
