@@ -30,15 +30,16 @@ namespace yadisk
 		 curl_slist * header_list = nullptr;
   		 std::string auth_header = "Authorization: OAuth " + token;
 		 header_list = curl_slist_append(header_list, auth_header.c_str()); 
-                 stringstream res;
- 
+                
+		
+ 		 stringstream res;
  		 curl = curl_easy_init();
    // Установка URL, который должен получить POST 
   		  curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     //Указываем данные POST
    
-     		 curl_easy_setopt(curl, CURLOPT_READDATA, &response);
-		 curl_easy_setopt(curl, CURLOPT_READFUNCTION, write<stringstream>);
+     		 curl_easy_setopt(curl, CURLOPT_WRITEDATA, &res);
+		 curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write<stringstream>);
 		 curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
 		 curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
 		 curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header_list);
