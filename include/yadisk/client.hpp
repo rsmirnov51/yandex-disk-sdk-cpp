@@ -19,6 +19,8 @@ namespace yadisk
 
         Client(string token);
 
+        auto ping() -> bool;
+
         auto info() -> json;
 
         auto info(url::path resource, json options = nullptr) -> json;
