@@ -16,20 +16,20 @@ namespace yadisk
 
 	Client::Client(string token_) : token{token_} {}
 
-    auto Client::ping() -> bool {
+	auto Client::ping() -> bool {
         
-        CURL * curl = curl_easy_init();
-        if (curl == nullptr) return false;
+		CURL * curl = curl_easy_init();
+		if (curl == nullptr) return false;
 
-        std::string url = api_url;
-        
+		std::string url = api_url;
+
 		struct curl_slist *header_list = nullptr;
 		std::string auth_header = "Authorization: OAuth " + token;
 		header_list = curl_slist_append(header_list, auth_header.c_str());
 
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_easy_setopt(curl, CURLOPT_NOBODY, 1L);
+		curl_easy_setopt(curl, CURLOPT_NOBODY, 1L);
 		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header_list);
@@ -41,11 +41,11 @@ namespace yadisk
 
 		if ( response_code != CURLE_OK ) return false;
 
-        long http_response_code = 0;
+		long http_response_code = 0;
 		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_response_code);
 
-        return http_response_code == 200;
-    }
+		return http_response_code == 200;
+	}
 
 	auto Client::copy(url::path from, url::path to, bool overwrite, std::list<std::string> fields) -> json {
 
