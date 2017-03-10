@@ -21,11 +21,11 @@ option(BUILD_TESTS "Build tests" ON)
 hunter_add_package(Boost COMPONENTS system filesystem)
 find_package(Boost CONFIG REQUIRED system filesystem)
 
-hunter_add_package(puffin-stream)
-find_package(puffin-stream REQUIRED)
+#hunter_add_package(puffin-stream)
+#find_package(puffin-stream REQUIRED)
 
-hunter_add_package(puffin-buffer)
-find_package(puffin-buffer REQUIRED)
+#hunter_add_package(puffin-buffer)
+#find_package(puffin-buffer REQUIRED)
 
 hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
@@ -47,8 +47,9 @@ target_link_libraries(${PROJECT_NAME}
 	OpenSSL::SSL OpenSSL::Crypto 
 	CURL::libcurl 
 	nlohmann-json::nlohmann-json
-	puffin-stream::puffin-stream
-	puffin-buffer::puffin-buffer)
+#	puffin-stream::puffin-stream
+#	puffin-buffer::puffin-buffer
+)
 
 if(BUILD_TESTS)
 	enable_testing()
