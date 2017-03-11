@@ -23,4 +23,5 @@ before_build:
 build_script:
   - cmake -H. -B_build
   - cmake --build _build
-  - cmake --build _build --target test
+  - cd _build
+  - ctest 
