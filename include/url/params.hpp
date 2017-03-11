@@ -1,6 +1,7 @@
 #ifndef URL_PARAMS_HPP
 #define URL_PARAMS_HPP
 
+#include <algorithm>
 #include <iterator>
 #include <ostream>
 #include <sstream>
@@ -48,7 +49,7 @@ namespace url
     auto operator<<(std::ostream& out, const url::params_t& params) -> std::ostream& {
 
         std::vector<std::string> pairs;
-        for_each(params.m_dict.begin(), params.m_dict.end(), [&pairs](url::dict_t::value_type item) {
+        std::for_each(params.m_dict.begin(), params.m_dict.end(), [&pairs](url::dict_t::value_type item) {
             pairs.push_back(item.first + "=" + item.second);
         });
 
