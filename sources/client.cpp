@@ -17,7 +17,7 @@ namespace yadisk
 	Client::Client(string token_) : token{token_} {}
 
 	auto Client::ping() -> bool {
-        
+
 		CURL * curl = curl_easy_init();
 		if (curl == nullptr) return false;
 
@@ -35,14 +35,16 @@ namespace yadisk
 		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header_list);
 
 		auto response_code = curl_easy_perform(curl);
-
+		
+		long http_response_code = 0;
+		if (response_code == CURLE_OK) {
+			response_code = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_response_code);			
+		}	
+		
 		curl_slist_free_all(header_list);
 		curl_easy_cleanup(curl);
 
-		if ( response_code != CURLE_OK ) return false;
-
-		long http_response_code = 0;
-		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_response_code);
+		if (response_code != CURLE_OK) return false;
 
 		return http_response_code == 200;
 	}
