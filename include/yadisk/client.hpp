@@ -14,7 +14,8 @@ namespace fs = boost::filesystem;
 namespace YandexDisk
 {
     class Client
-    {
+    {/// \param[in]
+     /// include examples/class.cpp
     public:
 
         Client(string token);
