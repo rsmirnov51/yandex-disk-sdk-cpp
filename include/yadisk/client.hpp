@@ -43,7 +43,7 @@ namespace yadisk
         /// publish
         /// \param[in] path resource
         /// \return https://tech.yandex.ru/disk/api/reference/response-objects-docpage/#link
-        /// \examples publish.cpp
+        /// \include examples/publish.cpp
 
         auto publish(url::path resource) -> json;
 
