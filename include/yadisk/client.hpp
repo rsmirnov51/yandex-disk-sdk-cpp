@@ -19,7 +19,6 @@ namespace YandexDisk
     /// \date 17/03/2017
     class Client
     {
-
 	/// \include examples/class.cpp
     public:
 
