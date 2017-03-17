@@ -13,13 +13,13 @@ namespace fs = boost::filesystem;
 
 namespace YandexDisk
 {
+    /// \brief YaDisk Client
+    /// \author AlexOdlin
+    /// \version 1.0.1
+    /// \date 17/03/2017
     class Client
     {
-	///
-	/// \brief YaDisk Client
-	/// \author AlexOdlin
-	/// \version 1.0.1
-	/// \date 17/03/2017
+
 	/// \include examples/class.cpp
     public:
 
