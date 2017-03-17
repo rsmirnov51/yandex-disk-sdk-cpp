@@ -20,7 +20,7 @@ namespace YandexDisk
 	/// \author AlexOdlin
 	/// \version 1.0.1
 	/// \date 17/03/2017
-	///
+	/// \include examples/class.cpp
     public:
 
         Client(string token);
