@@ -38,10 +38,10 @@ namespace yadisk
         auto move(url::path from, url::path to, bool overwrite, std::list<string> fields = std::list<string>()) -> json;
 
         auto mkdir(url::path dir, std::list<string> fields = std::list<string>()) -> json;
-
+                
         auto remove(url::path resource, bool permanently, std::list<string> fields = std::list<string>()) -> json;
         /// publish
-        /// \param[in] path resource
+        /// \param[in] resource
         /// \return https://tech.yandex.ru/disk/api/reference/response-objects-docpage/#link
         /// \include examples/publish.cpp
 
