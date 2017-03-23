@@ -131,6 +131,33 @@ namespace yadisk
 		auto info = json::parse(response_body);
 		return info;
 	}
+	auto Client::publish(url::path resource) -> json
+	{
+		CURL *curl;
+		FILE *fd;
+		url::params_t url_params;
+		struct curl_slist *header_list = nullptr;
+		std::string auth_header;
+		
+		fs::path p (fs::current_path());
+		url_params["path"] = quote(to.string(), curl);
+		std::string url = api_url + "/publish" + url_params.string();
+		
+		struct curl_slist *head_list = nullptr;
+		auth_header = "Authorization: OAuth " + token;
+		head_list = curl_slist_append(head_list, auth_header.c_str());
+		stringstream res;
+		
+		curl = curl_easy_init();
+		
+		
+		auto_res_code = curl_easy_perform(curl);
+		curl_easy_cleanup(curl);
+		curl_slist_free_all(header_list);
+		if (res_code != CURLE_OK) return json();
+		
+		return 0;
+	}
 }
 
 class curl_environment {
