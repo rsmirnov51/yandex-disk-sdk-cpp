@@ -150,6 +150,19 @@ namespace yadisk
 		
 		curl = curl_easy_init();
 		
+		/* get the file size of the local file */ 
+  		stat(file, &file_info);
+		hd_src = fopen(file, "rb");
+		curl_global_init(CURL_GLOBAL_ALL);
+		/* we want to use our own read function */ 
+  		curl_easy_setopt(curl, CURLOPT_READFUNCTION, read_callback);  
+		
+		/* HTTP PUT please */ 
+		curl_easy_setopt(curl, CURLOPT_PUT, 1L);
+
+		/* specify target URL, and note that this URL should include a file
+		   name, not only a directory */ 
+		curl_easy_setopt(curl, CURLOPT_URL, url);
 		
 		auto_res_code = curl_easy_perform(curl);
 		curl_easy_cleanup(curl);
