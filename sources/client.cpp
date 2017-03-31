@@ -3,6 +3,8 @@
 #include <url/params.hpp>
 #include <yadisk/client.hpp>
 #include <boost/algorithm/string/join.hpp>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #include <sstream>
 using std::stringstream;
@@ -155,7 +157,7 @@ namespace yadisk
 		curl = curl_easy_init();
 		
 		/* get the file size of the local file */   		
-		stat(file, &file_info);
+		//stat(file, &file_info);
 		//hd_src = fopen(file, "rb");
 		curl_global_init(CURL_GLOBAL_ALL);
 		/* we want to use our own read function */ 
