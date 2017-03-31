@@ -153,7 +153,7 @@ namespace yadisk
 		fd = fopen("C:\\file.txt", "w");
 		if (!fd) return 1;
 				
-		if (fstat(fileno(fd), &file_info)!=0) return 1;
+		//if (fstat(fileno(fd), &file_info)!=0) return 1;
 		curl = curl_easy_init();
 		
 		/* get the file size of the local file */   		
@@ -168,7 +168,7 @@ namespace yadisk
 
 		/* specify target URL, and note that this URL should include a file
 		   name, not only a directory */ 
-		curl_easy_setopt(curl, CURLOPT_URL, url);
+		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 		
 		auto res_code = curl_easy_perform(curl);
 		curl_easy_cleanup(curl);
