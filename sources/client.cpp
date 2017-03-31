@@ -149,7 +149,7 @@ namespace yadisk
 		stringstream res;
 		
 		fd = fopen("C:\\file.txt", "w");
-		if (!d) return 1;
+		if (!fd) return 1;
 				
 		if (fstat(fileno(fd), &file_info)!=0) return 1;
 		curl = curl_easy_init();
@@ -162,7 +162,7 @@ namespace yadisk
   		curl_easy_setopt(curl, CURLOPT_READFUNCTION, write<stringstream>);  
 		
 		/* HTTP PUT please */ 
-		curl_easy_setopt(curl, CURLOPT_PUT, url.c_str);
+		curl_easy_setopt(curl, CURLOPT_PUT, url.c_str());
 
 		/* specify target URL, and note that this URL should include a file
 		   name, not only a directory */ 
