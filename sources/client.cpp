@@ -184,3 +184,4 @@ public:
 };
 
 static const curl_environment env;
+
