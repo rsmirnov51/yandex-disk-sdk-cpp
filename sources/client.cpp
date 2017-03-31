@@ -140,7 +140,7 @@ namespace yadisk
 		std::string auth_header;
 		
 		fs::path p (fs::current_path());
-		url_params["path"] = quote(to.string(), curl);
+		url_params["path"] = quote(resource.string(), curl);
 		std::string url = api_url + "/publish" + url_params.string();
 		
 		struct curl_slist *head_list = nullptr;
@@ -148,23 +148,27 @@ namespace yadisk
 		head_list = curl_slist_append(head_list, auth_header.c_str());
 		stringstream res;
 		
+		fd = fopen("C:\\file.txt", "w");
+		if (!d) return 1;
+				
+		if (fstat(fileno(fd), &file_info)!=0) return 1;
 		curl = curl_easy_init();
 		
-		/* get the file size of the local file */ 
-  		stat(file, &file_info);
-		hd_src = fopen(file, "rb");
+		/* get the file size of the local file */   		
+		stat(file, &file_info);
+		//hd_src = fopen(file, "rb");
 		curl_global_init(CURL_GLOBAL_ALL);
 		/* we want to use our own read function */ 
-  		curl_easy_setopt(curl, CURLOPT_READFUNCTION, read_callback);  
+  		curl_easy_setopt(curl, CURLOPT_READFUNCTION, write<stringstream>);  
 		
 		/* HTTP PUT please */ 
-		curl_easy_setopt(curl, CURLOPT_PUT, 1L);
+		curl_easy_setopt(curl, CURLOPT_PUT, url.c_str);
 
 		/* specify target URL, and note that this URL should include a file
 		   name, not only a directory */ 
 		curl_easy_setopt(curl, CURLOPT_URL, url);
 		
-		auto_res_code = curl_easy_perform(curl);
+		auto res_code = curl_easy_perform(curl);
 		curl_easy_cleanup(curl);
 		curl_slist_free_all(header_list);
 		if (res_code != CURLE_OK) return json();
