@@ -136,7 +136,6 @@ namespace yadisk
 	auto Client::publish(url::path resource) -> json
 	{
 		CURL *curl;
-		FILE *fd;
 		url::params_t url_params;
 		struct curl_slist *header_list = nullptr;
 		std::string auth_header;
