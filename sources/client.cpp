@@ -142,7 +142,7 @@ namespace yadisk
 		
 		fs::path p (fs::current_path());
 		url_params["path"] = quote(resource.string(), curl);
-		std::string url = api_url + "/publish" + url_params.string();
+		std::string url = api_url + "/publish" + "?" + url_params.string();
 		
 		struct curl_slist *head_list = nullptr;
 		auth_header = "Authorization: OAuth " + token;
