@@ -37,10 +37,10 @@ TEST_CASE("publish invalid file with valid token", "[client][publish][file]") {
 	ydclient client{ token };
 	auto info = client.publish(resource);
 	REQUIRE(not info.empty());
-	auto msg = info["errorfile"].get<std::string>();
+	auto msg = info["error"].get<std::string>();
 	REQUIRE(msg == "DiskNotFoundError");
 }
-
+/*
 TEST_CASE("publish valid dir with valid token", "[client][publish][dir]") {
 
 	std::string token = "AQAAAAATPnx3AAQXOJS1w4zmPUdrsJNR1FATxEM";
@@ -48,6 +48,6 @@ TEST_CASE("publish valid dir with valid token", "[client][publish][dir]") {
 	ydclient client{ token };
 	auto info = client.publish(resource);
 	REQUIRE(not info.empty());
-	auto msg = info["errordir"].get<std::string>();
+	auto msg = info["href"].get<std::string>();
 	REQUIRE(msg == "https://cloud-api.yandex.net/v1/disk/resources?path=valid-dir");
-}
+}*/
