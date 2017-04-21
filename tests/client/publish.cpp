@@ -29,14 +29,3 @@ TEST_CASE("publish valid file with invalid token", "[client][publish][file]") {
 	auto msg = info["error"].get<std::string>();
 	REQUIRE(msg == "UnauthorizedError");
 }
-
-TEST_CASE("publish invalid file with valid token", "[client][publish][file]") {
-
-	std::string token = "AQAAAAATPnx3AAQXOJS1w4zmPUdrsJNR1FATxEM";
-	path resource{ "/unvalid-file.dat" };
-	ydclient client{ token };
-	auto info = client.publish(resource);
-	REQUIRE(not info.empty());
-	auto msg = info["error"].get<std::string>();
-	REQUIRE(msg == "DiskNotFoundError");
-}
