@@ -19,7 +19,7 @@ TEST_CASE("publish valid file with valid token", "[client][publish][file]") {
 	REQUIRE(msg == "https://cloud-api.yandex.net/v1/disk/resources?path=disk%3A%2Ffile.dat");
 }
 
-TEST_CASE("publish valid file with invalid token", "[client][publish][file]") {
+TEST_CASE("publish with invalid token", "[client][publish][file]") {
 
 	std::string token = "invalid-token";
 	path resource{ "/file.dat" };
